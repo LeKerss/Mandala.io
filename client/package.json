@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "A. Saker, A. Drouhin",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "fs": "0.0.1-security",
+    "webpack": "^2.2.1"
+  }
 }
