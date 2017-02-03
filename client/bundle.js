@@ -8285,24 +8285,35 @@ var SIZE_WIDTH = 50;
 var SIZE_HEIGHT = 50;
 
 var buffer = void 0;
-var socket = void 0;
+var socket = _socket2.default.connect('http://127.0.0.1:3000');
 
 window.setup = function () {
     buffer = [];
-    socket = _socket2.default.connect();
     createCanvas(640, 480);
     fill(0);
 };
 
 window.draw = function () {
     if (mouseIsPressed) {
-        ellipse(mouseX, mouseY, SIZE_HEIGHT, SIZE_WIDTH);
+        var myX = mouseX,
+            myY = mouseY;
+        ellipse(myX, myY, SIZE_HEIGHT, SIZE_WIDTH);
+        socket.emit('draw_motif', {
+            motif: {
+                x: myX,
+                y: myY
+            }
+        });
     }
     var pos = buffer.shift();
     if (pos) {
         ellipse(pos.x, pos.y, SIZE_HEIGHT, SIZE_WIDTH);
     }
 };
+
+socket.on('draw_motif', function (data) {
+    buffer.push(data.motif);
+});
 
 /***/ })
 /******/ ]);
