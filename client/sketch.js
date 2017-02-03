@@ -43,6 +43,8 @@ socket.on('draw_motif', function(data){
 // function changeColor() {
 //     mColor = document.getElementById('motif-color').value
 // }
-document.getElementById('motif-color').addEventListener('input', function (evt) {
-    mColor = this.value;
-});
+window.onload = function() {
+    document.getElementById("motif-color").addEventListener("input", function () {
+            mColor = this.value;
+    })
+}
