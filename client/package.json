@@ -4,7 +4,9 @@
   "description": "Collaborative drawing client",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --progress --color --inline --hot",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress"
   },
   "author": "A. Saker, A. Drouhin",
   "license": "MIT",
@@ -13,6 +15,9 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-core": "6.22.1",
+    "babel-loader": "6.2.10",
+    "babel-preset-latest": "6.22.0",
     "fs": "0.0.1-security",
     "webpack": "^2.2.1"
   }

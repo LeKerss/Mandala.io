@@ -5,8 +5,7 @@ const fs = require('fs')
 module.exports = {
   entry: './sketch.js',
   output: {
-    filename: 'bundle.js',
-    path: './'
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
