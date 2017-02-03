@@ -8281,38 +8281,50 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SIZE_WIDTH = 50;
-var SIZE_HEIGHT = 50;
+var SIZE_WIDTH = 50,
+    SIZE_HEIGHT = 50;
+
+var mColor = '#118848';
 
 var buffer = void 0;
 var socket = _socket2.default.connect('http://127.0.0.1:3000');
 
 window.setup = function () {
     buffer = [];
-    createCanvas(640, 480);
-    fill(0);
+    var canvas = createCanvas(640, 480);
+    canvas.parent('sketch-holder');
 };
 
 window.draw = function () {
     if (mouseIsPressed) {
+        fill(mColor);
         var myX = mouseX,
             myY = mouseY;
-        ellipse(myX, myY, SIZE_HEIGHT, SIZE_WIDTH);
+        ellipse(myX, myY, SIZE_WIDTH, SIZE_HEIGHT);
         socket.emit('draw_motif', {
             motif: {
+                color: mColor,
                 x: myX,
                 y: myY
             }
         });
     }
-    var pos = buffer.shift();
-    if (pos) {
-        ellipse(pos.x, pos.y, SIZE_HEIGHT, SIZE_WIDTH);
+    var motif = buffer.shift();
+    if (motif) {
+        fill(motif.color);
+        ellipse(motif.x, motif.y, SIZE_HEIGHT, SIZE_WIDTH);
     }
 };
 
 socket.on('draw_motif', function (data) {
     buffer.push(data.motif);
+});
+
+// function changeColor() {
+//     mColor = document.getElementById('motif-color').value
+// }
+document.getElementById('motif-color').addEventListener('input', function (evt) {
+    mColor = this.value;
 });
 
 /***/ })
