@@ -11,7 +11,8 @@
   "author": "A. Saker, A. Drouhin",
   "license": "MIT",
   "dependencies": {
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
