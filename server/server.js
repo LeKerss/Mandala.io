@@ -20,4 +20,8 @@ io.on('connection', function(socket) {
         motif_history.push(data.motif)
         io.emit('draw_motif', { motif: data.motif })
     })
+    socket.on('clear_page', function(data){
+        motif_history = [];
+        io.emit('clear_page', {clearer: data.clearer})
+    })
 })

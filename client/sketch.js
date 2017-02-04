@@ -3,7 +3,8 @@ import io from 'socket.io-client'
 const   SIZE_WIDTH = 50,
         SIZE_HEIGHT = 50
 
-let mColor = '#118848'
+let mColor = '#000000'
+let canvasHover = false;
 
 let buffer
 let socket = io.connect('http://127.0.0.1:3000')
@@ -16,7 +17,7 @@ window.setup = () => {
 }
 
 window.draw = () => {
-    if(mouseIsPressed) {
+    if(canvasHover && mouseIsPressed) {
         fill(mColor)
         let myX = mouseX,
             myY = mouseY;
@@ -40,11 +41,20 @@ socket.on('draw_motif', function(data){
     buffer.push(data.motif)
 })
 
-// function changeColor() {
-//     mColor = document.getElementById('motif-color').value
-// }
+socket.on('clear_page', function(data) {
+    clear()
+})
+
+
+
 window.onload = function() {
     document.getElementById("motif-color").addEventListener("input", function () {
             mColor = this.value;
     })
+    document.getElementById("clear-page").addEventListener("click", function () {
+            socket.emit('clear_page', {clearer: ""})
+    })
+    window.setHover = (state) => {
+        canvasHover = state
+    }
 }
