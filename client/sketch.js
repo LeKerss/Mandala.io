@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
 
-let     mWidth = 50,
+let     mShape = "ellipse",
+        mWidth = 50,
         mHeight = 50,
         mColor = '#000000',
         canvasHover = false,
@@ -15,26 +16,41 @@ window.setup = () => {
 
 window.draw = () => {
     if(canvasHover && mouseIsPressed) {
-        fill(mColor)
         let myX = mouseX,
             myY = mouseY;
-        ellipse(myX, myY, mWidth, mHeight)
-        socket.emit('draw_motif', {
-            motif:{
-                color: mColor,
-                x: myX,
-                y: myY,
-                width: mWidth,
-                height: mHeight
-            }
-        })
+        let motif = {
+            shape: mShape,
+            color: mColor,
+            x: myX,
+            y: myY,
+            width: mWidth,
+            height: mHeight
+        }
+
+        setMotif(motif)
+
+        socket.emit('draw_motif', { motif })
     }
+
     let motif = buffer.shift()
     if(motif){
-
-        fill(motif.color)
-        ellipse(motif.x, motif.y, motif.width, motif.height)
+        setMotif(motif)
     }
+}
+
+window.setMotif = (motif) => {
+    fill(motif.color)
+    switch (motif.shape) {
+        case "ellipse":
+            ellipse(motif.x, motif.y, motif.width, motif.height)
+        break;
+        case "rect":
+            rect(motif.x, motif.y, motif.width, motif.height)
+        break;
+        default:
+            rect(motif.x, motif.y, motif.width, motif.height)
+    }
+    fill(mColor)
 }
 
 socket.on('draw_motif', function(data){
@@ -49,6 +65,12 @@ socket.on('clear_page', function(data) {
 window.onload = function() {
     document.getElementById("motif-color").addEventListener("input", function () {
             mColor = this.value;
+    })
+    document.getElementById("motif-shape-ellipse").addEventListener("click", function () {
+            mShape = this.value
+    })
+    document.getElementById("motif-shape-rectangle").addEventListener("click", function () {
+            mShape = this.value
     })
     document.getElementById("motif-width").addEventListener("input", function () {
             mWidth = parseInt(this.value);
