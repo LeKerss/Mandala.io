@@ -1,20 +1,27 @@
 <html>
-  <head>
-      <title>Mandala.io</title>
-      <script content="text/javascript" src="./libraries/p5.min.js"></script>
-      <script src="bundle.js"></script>
-  </head>
-  <body>
-      <div flex id="user-settings">
-          <input id="motif-color" type="color"/>
-          <button id="clear-page">Clear page</button>
-      </div>
-      <span flex></span>
-      <div flex id="sketch-holder" onmouseenter="setHover(true)" onmouseout="setHover(false)">
-          <!-- Posiion of Canvas as defined in sketch.js !-->
-      </div>
+
+<head>
+    <title>Mandala.io</title>
+    <script content="text/javascript" src="./libraries/p5.min.js"></script>
+    <script src="bundle.js"></script>
+</head>
+
+<body>
+    <div flex id="user-settings">
+        <form>
+            <input id="motif-color" type="color" />
+            <input id="motif-width" type="number" name="width" value = "50" min="10" max="100">
+            <input id="motif-height" type="number" name="width" value = "50" min="10" max="100">
+            <button id="clear-page">Clear page</button>
+        </form>
+    </div>
+    <span flex></span>
+    <div flex id="sketch-holder" onmouseenter="setHover(true)" onmouseout="setHover(false)">
+        <!-- Posiion of Canvas as defined in sketch.js !-->
+    </div>
 
 
 
-  </body>
+</body>
+
 </html>
