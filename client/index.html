@@ -5,10 +5,12 @@
       <script src="bundle.js"></script>
   </head>
   <body>
-      <div id="user-settings">
+      <div flex id="user-settings">
           <input id="motif-color" type="color"/>
+          <button id="clear-page">Clear page</button>
       </div>
-      <div id="sketch-holder">
+      <span flex></span>
+      <div flex id="sketch-holder" onmouseenter="setHover(true)" onmouseout="setHover(false)">
           <!-- Posiion of Canvas as defined in sketch.js !-->
       </div>
 
