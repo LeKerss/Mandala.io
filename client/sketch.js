@@ -1,12 +1,14 @@
 import io from 'socket.io-client'
 
-const   SIZE_WIDTH = 50,
-        SIZE_HEIGHT = 50
+const   SIZE_WIDTH = 40,
+        SIZE_HEIGHT = 40
 
 let mColor = '#000000'
 let canvasHover = false;
 
 let buffer
+let initPage
+let initDone = false
 let socket = io.connect('http://127.0.0.1:3000')
 
 window.setup = () => {
@@ -17,6 +19,14 @@ window.setup = () => {
 }
 
 window.draw = () => {
+    if( !initDone && initPage != undefined ){
+      initPage.forEach(m => {
+        fill(m.color)
+        ellipse(m.x, m.y, SIZE_WIDTH, SIZE_HEIGHT)
+        })
+      initDone = true
+    }
+
     if(canvasHover && mouseIsPressed) {
         fill(mColor)
         let myX = mouseX,
@@ -43,6 +53,10 @@ socket.on('draw_motif', function(data){
 
 socket.on('clear_page', function(data) {
     clear()
+})
+
+socket.on('init_page', function(data) {
+    initPage = data.page
 })
 
 
