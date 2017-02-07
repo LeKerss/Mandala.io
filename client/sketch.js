@@ -9,6 +9,8 @@ let mShape = "ellipse",
     mStroke = true,
     mStrokeColor = '#000000',
     mStrokeWeight = 1,
+    initDone = false,
+    initPage,
     socket = io.connect('http://127.0.0.1:3000')
 
 window.setup = () => {
@@ -18,7 +20,14 @@ window.setup = () => {
 }
 
 window.draw = () => {
-    if (canvasHover && mouseIsPressed) {
+    if( !initDone && initPage != undefined ){
+      initPage.forEach(m => {
+        setMotif(m)
+        })
+      initDone = true
+    }
+
+    if(canvasHover && mouseIsPressed) {
         let myX = mouseX,
             myY = mouseY;
         let motif = {
@@ -75,6 +84,10 @@ socket.on('draw_motif', function(data) {
 
 socket.on('clear_page', function(data) {
     clear()
+})
+
+socket.on('init_page', function(data) {
+    initPage = data.page
 })
 
 
