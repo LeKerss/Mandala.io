@@ -1,7 +1,15 @@
 FROM alpine
+
 WORKDIR mandala-server
-ADD ./package.json ./
+
 RUN apk add --update nodejs nodejs-npm
+
+ADD ./package.json ./
+
 RUN npm install
+
+ADD . .
+
 EXPOSE 3000
-RUN npm run start
+
+CMD npm start
