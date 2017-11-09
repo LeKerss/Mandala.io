@@ -1,6 +1,0 @@
-FROM alpine
-WORKDIR client
-ADD ./package.json ./
-RUN apk add --update nodejs nodejs-npm
-RUN npm install
-RUN npm run build
